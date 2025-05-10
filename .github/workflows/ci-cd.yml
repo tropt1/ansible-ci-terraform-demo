@@ -50,4 +50,4 @@ jobs:
       - name: Wait for Nginx HTTPS
         run: |
           sleep 10
-        curl -vk https://localhost:443 || exit 1
+          curl -vk https://localhost:443 || exit 1
