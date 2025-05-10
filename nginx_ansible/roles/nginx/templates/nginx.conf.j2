@@ -1,0 +1,22 @@
+user {{ nginx_user }};
+worker_proccesses {{ worker_processes }};
+error_log /var/log/nginx/error.log;
+pid /run/nginx.pid;
+
+events{
+    worker_connections {{ worker_connections }};
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    sendfile on;
+    keepalive_timeout 65;
+
+    server {
+        listen 80 default_server;
+	server_name_;
+	root /var/www/html;
+	index index.html;
+    }
+}
