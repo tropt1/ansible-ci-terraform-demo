@@ -44,9 +44,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run services via Docker Compose
-        uses: hoverkraft-tech/compose-action@v0.0.0
+        uses: hoverkraft-tech/compose-action@v2.2.0
         with:
-          compose-file: docker-compose.yml
+          compose-file: "./Docker/docker-compose.yml"
           up-flags: "-d --build"
 
       - name: Wait for Nginx HTTPS
