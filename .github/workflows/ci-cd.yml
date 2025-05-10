@@ -10,9 +10,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: Docker
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -33,7 +31,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
-          context: .
+          context: ./Docker
+          file: ./Docker/Dockerfile
           push: true
           tags: ${{ env.IMAGE_NAME }}
 
