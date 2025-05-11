@@ -9,8 +9,7 @@ yc-terraform-vm/
 ├── variables.tf         # Определение входных переменных
 ├── main.tf              # Ресурсы VPC, подсеть, VM
 ├── outputs.tf           # Вывод IP-адресов инстанса
-├── secrets.tfvars       # Значения для yc_token, cloud_id, folder_id, zone (игнорируется)
-└── .gitignore           # Игнорирует secrets.tfvars и служебные файлы
+└── secrets.tfvars       # Значения для yc_token, cloud_id, folder_id, zone (игнорируется)
 ```
 
 ## ⚙️ Инструкции по запуску
