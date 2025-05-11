@@ -1,7 +1,6 @@
-variable "sa_key_file" {
-  description = "Path to service account JSON key"
+variable "yc_token" {
+  description = "IAM OAuth-token for access to Yandex Cloud"
   type        = string
-  default     = "key.json"
 }
 
 variable "cloud_id" {

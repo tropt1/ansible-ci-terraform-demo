@@ -1,5 +1,15 @@
+data "yandex_resourcemanager_folder" "terraform-demo" {
+  folder_id = var.folder_id
+}
+
+resource "yandex_resourcemanager_folder_iam_member" "editor" {
+  folder_id = "${data.yandex_resourcemanager_folder.terraform-demo.id}"
+  role      = "admin"
+  member   = "serviceAccount:ajej3140ejplajbf8db1"
+}
+
 resource "yandex_vpc_network" "vpc" {
-  name = "demo-network"
+  name = "demo-vpc"
 }
 
 resource "yandex_vpc_subnet" "subnet" {
@@ -8,16 +18,7 @@ resource "yandex_vpc_subnet" "subnet" {
   network_id     = yandex_vpc_network.vpc.id
   v4_cidr_blocks = ["10.10.0.0/24"]
 }
-
-resource "yandex_compute_disk" "disk"{
-  name     = "demo-sidk"
-  zone     = var.zone
-  type     = "network-ssd"
-  size     = 20
-  image_id = data.yandex_compute_image.ubuntu.id
-}
-
-data "yandex_compute_instance" "vm" {
+data "yandex_compute_image" "ubuntu"{
   family = "ubuntu-2204-lts"
 }
 
@@ -25,11 +26,16 @@ resource "yandex_compute_instance" "vm" {
   name = "demo-vm"
   zone = var.zone
 
-  resource_preset_id = "s2.micro" # 1 vCPU, 2 gib RAM
+  resources {
+    cores  = 2
+    memory = 2
+  }
 
   boot_disk {
     initialize_params {
       image_id = data.yandex_compute_image.ubuntu.id
+      type     = "network-hdd"
+      size     = 20
     }
   }
 
@@ -39,6 +45,6 @@ resource "yandex_compute_instance" "vm" {
   }
 
   metadata = {
-    ssh-keys = "ubuntu:${file("~/.ssh/yandexCloud_ssh")}"
+    ssh-keys = "ubuntu:${file("~/.ssh/yandexCloud_ssh.pub")}"
   }
 }
